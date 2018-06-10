@@ -102,8 +102,9 @@ def create(id=None):
 
     try:
         cur.execute('INSERT INTO url(id, hits, destination) VALUES (%s, %s, %s);', (id, 0, url))
-        for tag in tags:
-            cur.execute('INSERT INTO url_tags VALUES (%s, %s);', (id, tag))
+        cur.executemany('INSERT INTO url_tags VALUES (%s, %s);', [
+            (id, tag) for tag in tags
+        ])
         conn.commit()
         return jsonify({'id': id}), 200
 
