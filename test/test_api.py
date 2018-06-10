@@ -47,12 +47,7 @@ def test_fwd(google_id):
 
     r = requests.get('%s/url/%s' % (URL, google_id))
     r.raise_for_status()
-    assert r.json() == {
-            'id': google_id,
-            'hits': 1,
-            'destination': 'https://google.com',
-            'tags': ['google'],
-            }
+    assert r.json()['hits'] == 1
 
 
 def test_custom_id(custom_id):
